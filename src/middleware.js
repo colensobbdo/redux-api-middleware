@@ -111,7 +111,7 @@ function apiMiddleware({ getState }) {
             res = await axios(config)
         }
         catch (e) {
-            return next(await actionWith(
+            return next(await Utils.actionWith(
                 {
                     type: failure.type || failure,
                     meta: action,
