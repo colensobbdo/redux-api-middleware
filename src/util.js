@@ -16,7 +16,7 @@ async function getJSON(res) {
   const contentType = res.headers['content-type'];
 
   if (contentType && ~contentType.indexOf('json')) {
-    return await res.json();
+    return await res.data;
   } else {
     return await Promise.resolve();
   }
