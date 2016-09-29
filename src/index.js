@@ -33,7 +33,7 @@ import CALL_API from './CALL_API';
 import { isRSAA, validateRSAA, isValidRSAA } from './validation';
 import { InvalidRSAA, InternalError, RequestError, ApiError } from './errors';
 import { getJSON } from './util';
-import { apiMiddleware } from './middleware';
+import apiMiddleware from './middleware';
 
 export {
   CALL_API,
