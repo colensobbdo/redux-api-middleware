@@ -9,8 +9,6 @@ import * as Utils from './util'
 function apiMiddleware({ getState }) {
     return (next) => async (action) => {
 
-      debugger
-
         if (!Validation.isRSAA(action)) {
             return next(action)
         }
@@ -64,11 +62,23 @@ function apiMiddleware({ getState }) {
             }
             catch (e) {
                 return next(await Utils.actionWith(
-                    failureType,
+                    failure,
                     [action, getState(), new Errors.RequestError('endpoint function failed for CALL_API')]
                 ))
             }
         }
+
+        if (typeof headers === 'function') {
+            try {
+                headers = headers(getState());
+            } catch (e) {
+                return next(await actionWith(
+                    failure,
+                    [action, getState(), new RequestError('headers function failed CALL_API')]
+                ))
+            }
+        }
+
 
         next(await Utils.actionWith(
             request,
@@ -101,13 +111,14 @@ function apiMiddleware({ getState }) {
             res = await axios(config)
         }
         catch (e) {
-            var failureAction = await Utils.actionWith({
-                type: failure.type || failure,
-                meta: action,
-                payload: failure.payload || e
-            }, [action, getState(), e])
-
-            return next(failureAction)
+            return next(await actionWith(
+                {
+                    type: failure.type || failure,
+                    meta: action,
+                    payload: failure.payload || e
+                },
+                [action, getState(), e]
+            ))
         }
 
         if (t) {

@@ -9,6 +9,9 @@ import { InternalError, ApiError } from './errors';
  * @returns {promise|undefined}
  */
 async function getJSON(res) {
+  if (res instanceof Error) {
+    return res
+  }
   const contentType = res.headers.get('Content-Type');
 
   if (contentType && ~contentType.indexOf('json')) {
@@ -28,32 +31,29 @@ async function getJSON(res) {
  * @returns {array}
  */
 function getTypes(types) {
-  let [requestType, successType, failureType] = types;
+  let [request, success, failure] = types;
 
-  if (typeof requestType === 'string' || typeof requestType === 'symbol') {
-    requestType = { type: requestType };
+  if (typeof request === 'string' || typeof request === 'symbol') {
+    request = { type: request };
   }
 
-  if (typeof successType === 'string' || typeof successType === 'symbol') {
-    successType = { type: successType };
+  if (typeof success === 'string' || typeof success === 'symbol') {
+    success = { type: success };
   }
-  successType = {
+  success = {
     payload: (action, state, res) => getJSON(res),
-    ...successType
+    ...success
   };
 
-  if (typeof failureType === 'string' || typeof failureType === 'symbol') {
-    failureType = { type: failureType };
+  if (typeof failure === 'string' || typeof failure === 'symbol') {
+    failure = { type: failure };
   }
-  failureType = {
-    payload: (action, state, res) =>
-      getJSON(res).then(
-        (json) => new ApiError(res.status, res.statusText, json)
-      ),
-    ...failureType
+  failure = {
+    payload: (action, state, res) => getJSON(res),
+    ...failure
   };
 
-  return [requestType, successType, failureType];
+  return [request, success, failure];
 }
 
 /**
