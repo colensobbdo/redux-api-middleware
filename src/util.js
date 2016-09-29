@@ -27,7 +27,7 @@ async function getJSON(res) {
  * @param {array} types - The [CALL_API].types from a validated RSAA
  * @returns {array}
  */
-function normalizeTypeDescriptors(types) {
+function getTypes(types) {
   let [requestType, successType, failureType] = types;
 
   if (typeof requestType === 'string' || typeof requestType === 'symbol') {
@@ -92,4 +92,4 @@ async function actionWith(descriptor, args) {
   return descriptor;
 }
 
-export { getJSON, normalizeTypeDescriptors, actionWith };
+export { getJSON, getTypes, actionWith };

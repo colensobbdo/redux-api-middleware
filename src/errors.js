@@ -1,3 +1,11 @@
+class TimeoutError extends Error {
+    constructor(message) {
+        super()
+        this.name = 'TimeoutError'
+        this.message = message
+    }
+}
+
 /**
  * Error class for an RSAA that does not conform to the RSAA definition
  *
@@ -65,4 +73,4 @@ class ApiError extends Error {
   }
 }
 
-export { InvalidRSAA, InternalError, RequestError, ApiError };
+export { TimeoutError, InvalidRSAA, InternalError, RequestError, ApiError };

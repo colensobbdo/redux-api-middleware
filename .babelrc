@@ -1,7 +1,11 @@
 {
-  "stage": 0,
-  "loose": "all",
-  "optional": [
-    "runtime"
-  ]
+    "presets": ["es2015"],
+    "plugins": [
+        "transform-runtime",
+	    "syntax-async-functions",
+	    "transform-regenerator",
+        "transform-class-properties",
+        "transform-decorators-legacy",
+        "transform-object-rest-spread"
+    ]
 }
