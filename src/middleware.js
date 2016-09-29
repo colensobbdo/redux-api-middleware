@@ -17,7 +17,7 @@ function apiMiddleware({ getState }) {
         const validationErrors = Validation.validateRSAA(action)
         if (validationErrors.length > 0) {
 
-            if (callAPI.types && Array.isRSAA(callAPI.types)) {
+            if (callAPI.types && Array.isArray(callAPI.types)) {
                 var request = callAPI.types[0]
                 if (request && request.type) {
                     request = type
