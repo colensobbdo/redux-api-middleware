@@ -72,7 +72,7 @@ function apiMiddleware({ getState }) {
             try {
                 headers = headers(getState());
             } catch (e) {
-                return next(await actionWith(
+                return next(await Utils.actionWith(
                     failure,
                     [action, getState(), new RequestError('headers function failed CALL_API')]
                 ))
