@@ -12,7 +12,8 @@ async function getJSON(res) {
   if (res instanceof Error) {
     return res
   }
-  const contentType = res.headers.get('Content-Type');
+  
+  const contentType = res.headers['content-type'];
 
   if (contentType && ~contentType.indexOf('json')) {
     return await res.json();
