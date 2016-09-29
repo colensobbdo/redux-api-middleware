@@ -7,22 +7,6 @@ class TimeoutError extends Error {
 }
 
 /**
- * Error class for an RSAA that does not conform to the RSAA definition
- *
- * @class InvalidRSAA
- * @access public
- * @param {array} validationErrors - an array of validation errors
- */
-class InvalidRSAA extends Error {
-  constructor(validationErrors) {
-    super();
-    this.name = 'InvalidRSAA';
-    this.message = 'Invalid RSAA';
-    this.validationErrors = validationErrors;
-  }
-}
-
-/**
  * Error class for a custom `payload` or `meta` function throwing
  *
  * @class InternalError
@@ -73,4 +57,20 @@ class ApiError extends Error {
   }
 }
 
-export { TimeoutError, InvalidRSAA, InternalError, RequestError, ApiError };
+/**
+ * Error class for an RSAA that does not conform to the RSAA definition
+ *
+ * @class InvalidActionError
+ * @access public
+ * @param {array} validationErrors - an array of validation errors
+ */
+class InvalidActionError extends Error {
+  constructor(validationErrors) {
+    super();
+    this.name = 'InvalidActionError';
+    this.message = 'Invalid Action';
+    this.validationErrors = validationErrors;
+  }
+}
+
+export { TimeoutError, InvalidActionError, InternalError, RequestError, ApiError };
