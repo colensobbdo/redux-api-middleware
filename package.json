@@ -9,7 +9,7 @@
     "clean": "rimraf lib coverage",
     "cover": "babel-node ./node_modules/.bin/babel-istanbul cover test/index.js | tap-spec",
     "lint": "eslint src test",
-    "prepublish": "npm run build",
+    "postinstall": "npm run build",
     "test": "BABEL_CACHE_PATH=./babel.json ./node_modules/.bin/mocha --recursive test --compilers js:babel-register --no-timeouts"
   },
   "repository": "logikaljay/redux-api-middleware",
