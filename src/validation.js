@@ -1,5 +1,5 @@
 import CALL_API from './CALL_API';
-import isPlainObject from 'lodash.isplainobject';
+import * as _ from 'lodash';
 
 /**
  * Is the given action a plain JavaScript object with a [CALL_API] property?
@@ -10,7 +10,7 @@ import isPlainObject from 'lodash.isplainobject';
  * @returns {boolean}
  */
 function isRSAA(action) {
-  return isPlainObject(action) && action.hasOwnProperty(CALL_API);
+  return _.isPlainObject(action) && action.hasOwnProperty(CALL_API);
 }
 
 /**
@@ -28,7 +28,7 @@ function isValidTypeDescriptor(obj) {
     'meta'
   ]
 
-  if (!isPlainObject(obj)) {
+  if (!_.isPlainObject(obj)) {
     return false;
   }
   for (let key in obj) {
@@ -93,7 +93,7 @@ function validateRSAA(action) {
   }
 
   const callAPI = action[CALL_API];
-  if (!isPlainObject(callAPI)) {
+  if (!_.isPlainObject(callAPI)) {
     validationErrors.push('[CALL_API] property must be a plain JavaScript object');
   }
   for (let key in callAPI) {
@@ -116,7 +116,7 @@ function validateRSAA(action) {
     validationErrors.push(`Invalid [CALL_API].method: ${method.toUpperCase()}`);
   }
 
-  if (typeof headers !== 'undefined' && !isPlainObject(headers) && typeof headers !== 'function') {
+  if (typeof headers !== 'undefined' && !_.isPlainObject(headers) && typeof headers !== 'function') {
     validationErrors.push('[CALL_API].headers property must be undefined, a plain JavaScript object, or a function');
   }
   if (typeof credentials !== 'undefined') {

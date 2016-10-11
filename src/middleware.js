@@ -1,4 +1,3 @@
-import isPlainObject from 'lodash.isPlainObject'
 import axios from 'axios'
 
 import CALL_API from './CALL_API'
